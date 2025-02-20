@@ -9,3 +9,12 @@ function getComputerChoice(){
     }
     return guess;
 }
+
+function getHumanChoice(){
+    let choice = prompt("Chose: Rock, Paper or Scissors");
+    while((!["Rock", "Paper", "Scissors"].includes(choice))){
+        choice = prompt("Please, chose one of these only: Rock, Paper or Scissors");
+    };
+    return choice;
+}
+
