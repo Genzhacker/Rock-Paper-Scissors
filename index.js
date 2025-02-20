@@ -1,71 +1,62 @@
-function getHumanChoice(){
-    let choice = prompt("Chose: Rock, Paper or Scissors");
-    while((!choice || !["rock", "paper", "scissors"].includes(choice.toLowerCase()))){
-        choice = prompt("Please, chose one of these only: Rock, Paper or Scissors");
-    };
-    return choice;
+function getHumanChoice() {
+    let choice = prompt("Choose: Rock, Paper, or Scissors");
+    while (!choice || !["rock", "paper", "scissors"].includes(choice.toLowerCase())) {
+        choice = prompt("Please choose one of these only: Rock, Paper, or Scissors");
+    }
+    return choice.toLowerCase();
 }
 
-
-function getComputerChoice(){
-    let x = Math.floor(Math.random() * 3) +1;
-    if(x == 1){
+function getComputerChoice() {
+    let x = Math.floor(Math.random() * 3) + 1;
+    let guess;
+    if (x == 1) {
         guess = "rock";
-    }else if (x == 2){
+    } else if (x == 2) {
         guess = "paper";
-    }else{
+    } else {
         guess = "scissors";
     }
     return guess;
 }
 
-function playRound(HumanC, ComputerC, humanScore, computerScore){
+function playRound(HumanC, ComputerC, humanScore, computerScore) {
     let match = HumanC + "-" + ComputerC;
-    switch(match){
+    switch (match) {
         case "rock-paper":
-            computerScore++;
-            break;
-        case "rock-scissors":
-            humanScore++;
-            break;
-        case "paper-rock":
-            humanScore++;
-            break;
         case "paper-scissors":
-            computerScore++;
-            break;
         case "scissors-rock":
             computerScore++;
             break;
+        case "rock-scissors":
+        case "paper-rock":
         case "scissors-paper":
             humanScore++;
             break;
         default:
-            break;
+            console.log("It's a tie this round!");
     }
-    return {humanScore, computerScore};
+    return { humanScore, computerScore };
 }
 
-
-function playGame(playRound, HumanC, ComputerC){
+function playGame(playRound, HumanC, ComputerC) {
     let humanScore = 0;
     let computerScore = 0;
-    for(let i = 1; i <= 5; i++){
-        result = playRound(HumanC(), ComputerC(), humanScore, computerScore);
+
+    for (let i = 1; i <= 5; i++) {
+        let result = playRound(HumanC(), ComputerC(), humanScore, computerScore);
         humanScore = result.humanScore;
         computerScore = result.computerScore;
-        console.log("Round "+i+" 's score is: "+humanScore+'-'+computerScore);
+        console.log("Round " + i + " score: " + humanScore + '-' + computerScore);
     }
-    if(humanScore > computerScore){
-        console.log("The score is: "+ humanScore + "-" + computerScore + " YOU WIN, Congratulation!");
-    }else if(humanScore < computerScore){
-        console.log("The score is: "+ humanScore + "-" + computerScore + " YOU LOSE, Better luck next time!");
-    }else{
+
+    if (humanScore > computerScore) {
+        console.log("Final score: " + humanScore + "-" + computerScore + " YOU WIN! Congratulations!");
+    } else if (humanScore < computerScore) {
+        console.log("Final score: " + humanScore + "-" + computerScore + " YOU LOSE! Better luck next time.");
+    } else {
         console.log("It's a tie!");
     }
 }
-
-
 
 let HumanC = getHumanChoice;
 let ComputerC = getComputerChoice;
